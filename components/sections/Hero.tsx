@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown, ArrowRight } from 'lucide-react';
-import { Section } from '../../types';
+import type { Section } from '../../types';
 import { useStore } from '../../store';
 
 const Hero: React.FC = () => {

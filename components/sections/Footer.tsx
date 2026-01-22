@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Download } from 'lucide-react';
 import { useStore } from '../../store';
-import { Section } from '../../types';
+import type { Section } from '../../types';
 
 const Footer: React.FC = () => {
   const openModal = useStore(state => state.openModal);

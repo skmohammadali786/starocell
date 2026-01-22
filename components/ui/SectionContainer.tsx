@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useInView } from 'framer-motion';
 import { useStore } from '../../store';
-import { Section } from '../../types';
+import type { Section } from '../../types';
 
 interface Props {
   id: Section;
