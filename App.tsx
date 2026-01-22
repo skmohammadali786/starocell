@@ -31,12 +31,29 @@ function App() {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       setFormStatus('submitting');
-      setTimeout(() => {
-          setFormStatus('success');
-      }, 1500);
+
+      const formData = new FormData(e.currentTarget);
+      
+      try {
+          const response = await fetch("https://formspree.io/f/xwvvdrdk", {
+              method: "POST",
+              body: formData,
+              headers: {
+                  'Accept': 'application/json'
+              }
+          });
+          
+          if (response.ok) {
+              setFormStatus('success');
+          } else {
+              setFormStatus('idle');
+          }
+      } catch (error) {
+          setFormStatus('idle');
+      }
   };
 
   // Reset form when modal closes
@@ -103,17 +120,17 @@ function App() {
                     We are currently accepting applications for pilot programs in the Automotive and Utility sectors. 
                     Please provide your organization details.
                 </p>
-                <input required type="text" placeholder="Full Name" className="w-full bg-black/50 border border-white/20 p-3 rounded focus:border-brand-green outline-none text-white focus:bg-black/80 transition-all" />
-                <input required type="email" placeholder="Work Email" className="w-full bg-black/50 border border-white/20 p-3 rounded focus:border-brand-green outline-none text-white focus:bg-black/80 transition-all" />
-                <input required type="text" placeholder="Company / Organization" className="w-full bg-black/50 border border-white/20 p-3 rounded focus:border-brand-green outline-none text-white focus:bg-black/80 transition-all" />
-                <select className="w-full bg-black/50 border border-white/20 p-3 rounded focus:border-brand-green outline-none text-white focus:bg-black/80 transition-all">
+                <input name="name" required type="text" placeholder="Full Name" className="w-full bg-black/50 border border-white/20 p-3 rounded focus:border-brand-green outline-none text-white focus:bg-black/80 transition-all" />
+                <input name="email" required type="email" placeholder="Work Email" className="w-full bg-black/50 border border-white/20 p-3 rounded focus:border-brand-green outline-none text-white focus:bg-black/80 transition-all" />
+                <input name="company" required type="text" placeholder="Company / Organization" className="w-full bg-black/50 border border-white/20 p-3 rounded focus:border-brand-green outline-none text-white focus:bg-black/80 transition-all" />
+                <select name="sector" className="w-full bg-black/50 border border-white/20 p-3 rounded focus:border-brand-green outline-none text-white focus:bg-black/80 transition-all">
                     <option value="" disabled selected>Industry Sector</option>
                     <option value="ev">Automotive / EV</option>
                     <option value="grid">Grid Storage</option>
                     <option value="consumer">Consumer Electronics</option>
                     <option value="investor">Investment</option>
                 </select>
-                <textarea placeholder="Project Details" rows={4} className="w-full bg-black/50 border border-white/20 p-3 rounded focus:border-brand-green outline-none text-white focus:bg-black/80 transition-all"></textarea>
+                <textarea name="message" placeholder="Project Details" rows={4} className="w-full bg-black/50 border border-white/20 p-3 rounded focus:border-brand-green outline-none text-white focus:bg-black/80 transition-all"></textarea>
                 <button type="submit" disabled={formStatus === 'submitting'} className="w-full bg-brand-green text-black font-bold py-3 rounded hover:bg-brand-green/90 transition-colors disabled:opacity-50">
                     {formStatus === 'submitting' ? 'Processing...' : 'Submit Application'}
                 </button>
