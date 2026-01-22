@@ -10,7 +10,7 @@ import Applications from './components/sections/Applications';
 import AboutUs from './components/sections/AboutUs';
 import Footer from './components/sections/Footer';
 import Modal from './components/ui/Modal';
-import type { Section } from './types';
+import { Section } from './types';
 import { Menu, X, CheckCircle2 } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useStore } from './store';

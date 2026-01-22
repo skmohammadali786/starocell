@@ -1,7 +1,7 @@
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useStore } from '../../store';
-import type { Section } from '../../types';
+import { Section } from '../../types';
 import * as THREE from 'three';
 import { Html } from '@react-three/drei';
 
